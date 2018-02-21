@@ -1,6 +1,6 @@
-package com.etherblood.images.blending;
+package com.etherblood.images.processing.blending;
 
-import com.etherblood.images.FloatChannel;
+import com.etherblood.images.processing.FloatChannel;
 
 
 public class MagnitudeBlender {

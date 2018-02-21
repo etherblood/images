@@ -1,6 +1,7 @@
-package com.etherblood.images.filters;
+package com.etherblood.images.processing.filters.convolution;
 
-import com.etherblood.images.FloatChannel;
+import com.etherblood.images.processing.FloatChannel;
+import com.etherblood.images.processing.filters.WrapMode;
 import java.util.Objects;
 
 /**

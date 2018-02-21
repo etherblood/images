@@ -1,4 +1,4 @@
-package com.etherblood.images;
+package com.etherblood.images.processing;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -8,7 +8,7 @@ import java.util.Set;
  *
  * @author Philipp
  */
-public class FloatImage {
+public class FloatImage implements Canvas {
 
     private final Map<ChannelType, FloatChannel> channels = new EnumMap<>(ChannelType.class);
     private final int width, height;
@@ -33,10 +33,12 @@ public class FloatImage {
         return channels.keySet();
     }
     
+    @Override
     public int width() {
         return width;
     }
     
+    @Override
     public int height() {
         return height;
     }

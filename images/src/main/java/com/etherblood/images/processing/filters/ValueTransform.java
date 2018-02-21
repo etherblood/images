@@ -1,4 +1,4 @@
-package com.etherblood.images.filters;
+package com.etherblood.images.processing.filters;
 
 /**
  *

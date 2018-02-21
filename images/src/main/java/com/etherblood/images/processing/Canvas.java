@@ -1,4 +1,4 @@
-package com.etherblood.images;
+package com.etherblood.images.processing;
 
 /**
  *
@@ -12,5 +12,8 @@ public interface Canvas {
     }
     default boolean contains(int x, int y) {
         return 0 <= x && x < width() && 0 <= y && y < height();
+    }
+    default int size() {
+        return width() * height();
     }
 }

@@ -1,6 +1,6 @@
-package com.etherblood.images.interpolation;
+package com.etherblood.images.processing.interpolation;
 
-import com.etherblood.images.FloatChannel;
+import com.etherblood.images.processing.FloatChannel;
 
 public class BilinearInterpolator implements Interpolator {
 

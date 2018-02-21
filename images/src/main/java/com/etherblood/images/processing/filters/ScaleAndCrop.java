@@ -1,7 +1,7 @@
-package com.etherblood.images.filters;
+package com.etherblood.images.processing.filters;
 
-import com.etherblood.images.FloatChannel;
-import com.etherblood.images.interpolation.Interpolator;
+import com.etherblood.images.processing.FloatChannel;
+import com.etherblood.images.processing.interpolation.Interpolator;
 import java.awt.Rectangle;
 
 /**
