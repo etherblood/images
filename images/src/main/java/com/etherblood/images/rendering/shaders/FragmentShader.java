@@ -7,6 +7,6 @@ import com.jme3.math.Vector4f;
  *
  * @author Philipp
  */
-public interface Shader {
+public interface FragmentShader {
     void process(Vector3f position, Vector3f normal, Vector4f color, Vector3f texture, Vector4f result);
 }

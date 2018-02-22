@@ -51,6 +51,10 @@ public class ImageConverter {
         return result;
     }
 
+    public Vector4fImage toVector4fImage(BufferedImage bufferedImage) {
+        return toVector4fImage(toFloatImageImage(bufferedImage), ChannelType.RED, ChannelType.GREEN, ChannelType.BLUE, ChannelType.ALPHA);
+    }
+
     public Vector4fImage toVector4fImage(FloatImage image, ChannelType... channels) {
         Vector4fImage result = new Vector4fImage(image.width(), image.height());
         for (int i = 0; i < result.size(); i++) {

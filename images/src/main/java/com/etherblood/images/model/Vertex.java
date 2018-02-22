@@ -1,7 +1,6 @@
 package com.etherblood.images.model;
 
 import com.jme3.math.Vector3f;
-import javax.xml.bind.annotation.XmlElement;
 
 /**
  *
@@ -15,7 +14,6 @@ public class Vertex {
         return position;
     }
 
-    @XmlElement
     public void setPosition(Vector3f position) {
         this.position = position;
     }
@@ -24,7 +22,6 @@ public class Vertex {
         return normal;
     }
 
-    @XmlElement
     public void setNormal(Vector3f normal) {
         this.normal = normal;
     }
@@ -33,7 +30,6 @@ public class Vertex {
         return texcoord;
     }
 
-    @XmlElement
     public void setTexcoord(Vector2f texcoord) {
         this.texcoord = texcoord;
     }

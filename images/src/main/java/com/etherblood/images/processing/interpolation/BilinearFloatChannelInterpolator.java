@@ -2,7 +2,7 @@ package com.etherblood.images.processing.interpolation;
 
 import com.etherblood.images.processing.FloatChannel;
 
-public class BilinearInterpolator implements Interpolator {
+public class BilinearFloatChannelInterpolator implements FloatChannelInterpolator {
 
     @Override
     public float interpolate(FloatChannel channel, float x, float y) {
@@ -19,7 +19,7 @@ public class BilinearInterpolator implements Interpolator {
         float ab = a * (maxX - x) + b * (x - minX);
         float cd = c * (maxX - x) + d * (x - minX);
         float abcd = ab * (maxY - y) + cd * (y - minY);
-        return Math.round(abcd);
+        return abcd;
     }
 
 }

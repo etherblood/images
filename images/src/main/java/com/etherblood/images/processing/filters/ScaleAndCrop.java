@@ -1,8 +1,8 @@
 package com.etherblood.images.processing.filters;
 
 import com.etherblood.images.processing.FloatChannel;
-import com.etherblood.images.processing.interpolation.Interpolator;
 import java.awt.Rectangle;
+import com.etherblood.images.processing.interpolation.FloatChannelInterpolator;
 
 /**
  *
@@ -10,9 +10,9 @@ import java.awt.Rectangle;
  */
 public class ScaleAndCrop {
 
-    private final Interpolator interpolator;
+    private final FloatChannelInterpolator interpolator;
 
-    public ScaleAndCrop(Interpolator interpolator) {
+    public ScaleAndCrop(FloatChannelInterpolator interpolator) {
         this.interpolator = interpolator;
     }
 

@@ -10,13 +10,16 @@ import com.etherblood.images.processing.FloatChannel;
 import com.etherblood.images.processing.blending.MagnitudeBlender;
 import com.etherblood.images.processing.filters.WrapMode;
 import com.etherblood.images.processing.filters.convolution.DefaultConvolutions;
+import com.etherblood.images.processing.interpolation.BilinearFloatImageInterpolator;
 import com.etherblood.images.rendering.BufferType;
 import com.etherblood.images.rendering.TriRastering;
 import com.etherblood.images.rendering.Vector4fImage;
 import com.etherblood.images.rendering.VertexBuffers;
 import com.etherblood.images.rendering.blending.AlphaBlender;
 import com.etherblood.images.rendering.sampling.ExampleTextureSampler;
-import com.etherblood.images.rendering.shaders.DefaultShader;
+import com.etherblood.images.rendering.sampling.SimpleTextureSampler;
+import com.etherblood.images.rendering.sampling.TextureSampler;
+import com.etherblood.images.rendering.shaders.DefaultFragmentShader;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.jme3.math.Vector3f;
@@ -55,7 +58,7 @@ public class Main {
         Vector3f[] texCoords = new Vector3f[vertices.size()];
         for (int i = 0; i < vertices.size(); i++) {
             Vertex v = vertices.get(i);
-            positions[i] = v.getPosition().mult(new Vector3f(200, -200, 1)).add(500, 900, 0);
+            positions[i] = v.getPosition().mult(new Vector3f(200, -200, -1)).add(500, 900, 0);
             normals[i] = v.getNormal();
             texCoords[i] = v.getTexcoord().toVector3f();
         }
@@ -86,7 +89,9 @@ public class Main {
 
         Vector4fImage vImage = new ImageConverter().toVector4fImage(image, ChannelType.RED, ChannelType.GREEN, ChannelType.BLUE, ChannelType.ALPHA);
 
-        new TriRastering(new DefaultShader(new ExampleTextureSampler()), new AlphaBlender(), buffers).raster(new FloatChannel(vImage.width(), vImage.height(), 1), vImage);
+        Vector4fImage texture = new ImageConverter().toVector4fImage(ImageIO.read(new File("tests/sources/oz/resources/skin_oz_junior.png")));
+        TextureSampler textureSampler = new SimpleTextureSampler(texture, new BilinearFloatImageInterpolator());
+        new TriRastering(new DefaultFragmentShader(textureSampler), new AlphaBlender(), buffers).raster(new FloatChannel(vImage.width(), vImage.height(), 1), vImage);
 
         image = new ImageConverter().toFloatImage(vImage, ChannelType.RED, ChannelType.GREEN, ChannelType.BLUE, ChannelType.ALPHA);
 
@@ -106,7 +111,7 @@ public class Main {
 
         Vector4fImage vImage = new ImageConverter().toVector4fImage(image, ChannelType.RED, ChannelType.GREEN, ChannelType.BLUE, ChannelType.ALPHA);
 
-        new TriRastering(new DefaultShader(new ExampleTextureSampler()), new AlphaBlender(), new VertexBuffers()
+        new TriRastering(new DefaultFragmentShader(new ExampleTextureSampler()), new AlphaBlender(), new VertexBuffers()
                 .withBuffer(BufferType.INDEX, IntStream.range(0, 9).toArray())
                 .withBuffer(BufferType.POSITION, new Vector3f[]{
             new Vector3f(20, 30, 0), new Vector3f(80, 10, 0), new Vector3f(50, 90, 0),

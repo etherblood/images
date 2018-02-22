@@ -1,7 +1,6 @@
 package com.etherblood.images.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import javax.xml.bind.annotation.XmlElement;
 
 /**
  *
@@ -16,7 +15,6 @@ public class Geometry {
         return vertexbuffer;
     }
 
-    @XmlElement
     public void setVertexbuffer(VertexBuffer vertexbuffer) {
         this.vertexbuffer = vertexbuffer;
     }

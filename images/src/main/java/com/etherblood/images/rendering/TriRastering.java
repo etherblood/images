@@ -1,12 +1,12 @@
 package com.etherblood.images.rendering;
 
 import com.etherblood.images.processing.FloatChannel;
-import com.etherblood.images.rendering.shaders.Shader;
 import com.etherblood.images.rendering.blending.Blender;
 import com.jme3.math.Vector3f;
 import com.jme3.math.Vector4f;
 import java.util.ArrayList;
 import java.util.List;
+import com.etherblood.images.rendering.shaders.FragmentShader;
 
 /**
  *
@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class TriRastering {
 
-    private final Shader shader;
+    private final FragmentShader shader;
     private final Blender blender;
     private final int[] indices;
     private final Vector3f[] vertices;
@@ -23,7 +23,7 @@ public class TriRastering {
     private final Vector4f[] colors;
     private final IntSetSparse containerTris = new IntSetSparse(100);
 
-    public TriRastering(Shader shader, Blender blender, VertexBuffers buffers) {
+    public TriRastering(FragmentShader shader, Blender blender, VertexBuffers buffers) {
         this.shader = shader;
         this.blender = blender;
         this.indices = buffers.get(BufferType.INDEX, int[].class).get();
@@ -33,7 +33,7 @@ public class TriRastering {
         this.colors = buffers.get(BufferType.NORMAL, Vector4f[].class).orElse(null);
     }
 
-    public void raster(FloatChannel depth, Vector4fImage output) {
+    public void raster(FloatChannel depthBuffer, Vector4fImage output) {
         for (int y = 0; y < output.height(); y++) {
             //TODO: update active triangles incrementally
             List<Vector3f> bounds = new ArrayList<>();
@@ -75,7 +75,10 @@ public class TriRastering {
 
                     //TODO: save data to collection and do remaining stuff in separate loop after ordering and filtering by z
                     
-                    //TODO: cull pixels that would be drawn behind the canvas as soon as we have a depth buffer
+                    if(z > depthBuffer.get(x, y)) {
+                        continue;
+                    }
+//                    //TODO: cull pixels that would be drawn behind the canvas as soon as we have a depth buffer
                     Vector3f tex = null;
                     if (textureCoords != null) {
                         Vector3f texA = textureCoords[indices[triIndex]];
@@ -101,6 +104,7 @@ public class TriRastering {
                     shader.process(new Vector3f(x, y, z), normal, color, tex, resultColor);
                     Vector4f outputVertex = output.get(x, y);
                     blender.blend(resultColor, outputVertex, outputVertex);
+                    depthBuffer.set(x, y, z);
                 }
             }
         }

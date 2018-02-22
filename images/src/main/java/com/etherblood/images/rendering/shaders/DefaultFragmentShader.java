@@ -5,11 +5,11 @@ import com.jme3.math.Vector3f;
 import com.jme3.math.Vector4f;
 
 
-public class DefaultShader implements Shader {
+public class DefaultFragmentShader implements FragmentShader {
 
     private final TextureSampler sampler;
 
-    public DefaultShader(TextureSampler sampler) {
+    public DefaultFragmentShader(TextureSampler sampler) {
         this.sampler = sampler;
     }
     
