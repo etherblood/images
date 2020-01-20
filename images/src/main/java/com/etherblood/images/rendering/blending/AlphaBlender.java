@@ -9,7 +9,7 @@ public class AlphaBlender implements Blender {
         output.x = top.w * top.x + (1 - top.w) * bottom.w * bottom.x;
         output.y = top.w * top.y + (1 - top.w) * bottom.w * bottom.y;
         output.z = top.w * top.z + (1 - top.w) * bottom.w * bottom.z;
-        output.w = top.w + bottom.w - top.w * bottom.w;
+        output.w = top.w + (1 - top.w) * bottom.w;
     }
 
     @Override
